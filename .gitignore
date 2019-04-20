@@ -1,4 +1,5 @@
 /node_modules
+__pycache__/
 
 walk.py
 
@@ -7,5 +8,3 @@ app-1.py
 cnn-med-model.h5
 
 cnn-med-model-howtotrainyourdragon.h5
-
-__pycache__/
