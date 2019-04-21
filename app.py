@@ -85,6 +85,11 @@ class Upload(Resource):
                 'filename_user' : filename.split('-', 1)[1],
                 'message' : 'true'
             }
+        else:
+            message = {
+                'message' : 'extension'
+            }
+            return message
 
         return jsonify(message)
 
