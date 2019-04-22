@@ -97,4 +97,4 @@ api.add_resource(Process, '/process')
 api.add_resource(Upload, '/upload')
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    app.run()
