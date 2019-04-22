@@ -1,7 +1,6 @@
 # This file may be used to create an environment using:
 # $ conda create --name <env> --file <this file>
 # platform: win-64
-audioread=2.1.6=py36_0
 cudatoolkit=10.0.130=0
 cudnn=7.3.1=cuda10.0_0
 flask=1.0.2=py_2
