@@ -1,0 +1,21 @@
+# This file may be used to create an environment using:
+# $ conda create --name <env> --file <this file>
+# platform: win-64
+audioread=2.1.6=py36_0
+cudatoolkit=10.0.130=0
+cudnn=7.3.1=cuda10.0_0
+flask=1.0.2=py_2
+flask-cors=3.0.7=py36_0
+flask-restful=0.3.6=py_1
+h5py=2.9.0=py36h5e291fa_0
+hdf5=1.10.4=h7ebc959_0
+keras-applications=1.0.6=py36_0
+keras-base=2.2.4=py36_0
+keras-gpu=2.2.4=0
+keras-preprocessing=1.0.5=py36_0
+librosa=0.6.3=py_0
+numpy=1.14.5=py36h9fa60d3_4
+numpy-base=1.14.5=py36h5c71026_4
+numpydoc=0.8.0=py36_0
+tensorboard=1.10.0=py36_0
+tensorflow-gpu=1.10.0=py36_0
