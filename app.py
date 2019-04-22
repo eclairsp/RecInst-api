@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, send_file
 from flask_restful import Api, Resource, reqparse
 import werkzeug
 from werkzeug.utils import secure_filename
@@ -49,6 +49,19 @@ def allowed_file(filename):
     return '.' in filename and \
         filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+class Audio(Resource):
+    def post(self):
+        data = request.get_json()
+        filename = data['filename']
+        path = os.path.join(UPLOAD_FOLDER, filename)
+        try:
+            return send_file(path, attachment_filename=filename)
+        except:
+            message = {
+                'message' : 'not found'
+            }
+            return message
+
 class Process(Resource):
     def post(self):
         data = request.get_json()
@@ -83,7 +96,7 @@ class Upload(Resource):
             message = {
                 'filename_server' : filename,
                 'filename_user' : filename.split('-', 1)[1],
-                'message' : 'true'
+                'message' : 'true',
             }
         else:
             message = {
@@ -95,6 +108,7 @@ class Upload(Resource):
 
 api.add_resource(Process, '/process')
 api.add_resource(Upload, '/upload')
+api.add_resource(Audio, '/audio')
 
 if __name__ == '__main__':
     app.run()
