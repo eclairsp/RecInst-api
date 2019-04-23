@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, send_file
+from flask import Flask, jsonify, request
 from flask_restful import Api, Resource, reqparse
 import werkzeug
 from werkzeug.utils import secure_filename
@@ -11,6 +11,7 @@ from keras.models import load_model
 import tensorflow as tf
 import keras
 import json
+from shutil import copy2
 
 os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
 
@@ -24,6 +25,7 @@ cors = CORS(app, resources={r"/*": {"origins": "*"}})
 api = Api(app)
 
 UPLOAD_FOLDER = os.path.basename('uploads')
+STATIC = os.path.basename('static')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 ALLOWED_EXTENSIONS = set(['wav', 'mp3', 'flac'])
@@ -49,26 +51,12 @@ def allowed_file(filename):
     return '.' in filename and \
         filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-class Audio(Resource):
-    def post(self):
-        data = request.get_json()
-        filename = data['filename']
-        path = os.path.join(UPLOAD_FOLDER, filename)
-        try:
-            return send_file(path, attachment_filename=filename)
-        except:
-            message = {
-                'message' : 'not found'
-            }
-            return message
-
 class Process(Resource):
     def post(self):
         data = request.get_json()
         filename = data['filename']
         spectrogram = os.path.basename('spectrograms')
         fileSrc = os.path.join(UPLOAD_FOLDER, filename)
-        print(fileSrc)
         path = cts(fileSrc, spectrogram, data['filename'])
         path = path + ".png"
         res = predict(path)
@@ -81,9 +69,6 @@ class Process(Resource):
 class Upload(Resource):
     def post(self):
         file = request.files['files']
-
-        print('file', file)
-
         if file.filename == '':
             message = {
                 'message' : 'false'
@@ -108,7 +93,6 @@ class Upload(Resource):
 
 api.add_resource(Process, '/process')
 api.add_resource(Upload, '/upload')
-api.add_resource(Audio, '/audio')
 
 if __name__ == '__main__':
     app.run()
