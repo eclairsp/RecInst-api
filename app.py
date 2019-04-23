@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, send_file, url_for
 from flask_restful import Api, Resource, reqparse
 import werkzeug
 from werkzeug.utils import secure_filename
@@ -78,6 +78,7 @@ class Upload(Resource):
             filename = secure_filename(file.filename)
             filename = str(uuid.uuid4().hex) + '-' + filename.rsplit('.',1)[0] +  '.' + filename.rsplit('.',1)[1].lower()
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            copy2((os.path.join(app.config['UPLOAD_FOLDER'], filename)), STATIC)
             message = {
                 'filename_server' : filename,
                 'filename_user' : filename.split('-', 1)[1],
