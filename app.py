@@ -39,11 +39,11 @@ def predict(file):
     with graph.as_default():
         result = model.predict_proba(test_image)
     op = {
-        'gac' : result[0][0].item(),
-        'gel' : result[0][1].item(),
-        'org' : result[0][2].item(),
-        'pia' : result[0][3].item(),
-        'voi' : result[0][4].item()
+        'gac' : float("%0.5f" % (result[0][0].item())),
+        'gel' : float("%0.5f" % (result[0][1].item())),
+        'org' : float("%0.5f" % (result[0][2].item())),
+        'pia' : float("%0.5f" % (result[0][3].item())),
+        'voi' : float("%0.5f" % (result[0][4].item()))
     } # '.item() helps with result number being float32 and cant be used in json'
     return op
 
