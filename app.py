@@ -13,6 +13,7 @@ import keras
 import json
 from shutil import copy2
 
+#forces CPU while doing calculations on the file.
 os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
 
 global model
@@ -62,7 +63,28 @@ class Process(Resource):
         res = predict(path)
         name = {
             'message' : 'Converted',
-            'result' : res
+            'result' : [
+                {
+                    'name' : 'gac',
+                    'prob' : res['gac']
+                },
+                {
+                    'name' : 'gel',
+                    'prob' : res['gel']
+                },
+                {
+                    'name' : 'org',
+                    'prob' : res['org']
+                },
+                {
+                    'name' : 'pia',
+                    'prob' : res['pia']
+                },
+                {
+                    'name' : 'voi',
+                    'prob' : res['voi']
+                }
+            ]
         }
         return jsonify(name)
 
