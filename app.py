@@ -41,6 +41,10 @@ if not os.path.exists(spectrogram):
 
 ALLOWED_EXTENSIONS = set(['wav', 'mp3', 'flac'])
 
+@app.route('/')
+def hello_world():
+    return '<h1>Go to: <a href="https://recinst.netlify.com/">Recinst app</a></h1>'
+
 def predict(file):
     import numpy as np
     from keras.preprocessing import image
