@@ -13,6 +13,10 @@ import keras
 import json
 from shutil import copy2
 
+app = Flask(__name__)
+cors = CORS(app, resources={r"/*": {"origins": "*"}})
+api = Api(app)
+
 #forces CPU while doing calculations on the file.
 os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
 
@@ -20,10 +24,6 @@ global model
 model = load_model("cnn-med-model-backtothefututre.h5")
 global graph
 graph = tf.get_default_graph()
-
-app = Flask(__name__)
-cors = CORS(app, resources={r"/*": {"origins": "*"}})
-api = Api(app)
 
 UPLOAD_FOLDER = os.path.basename('uploads')
 STATIC = os.path.basename('static')
