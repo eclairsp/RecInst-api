@@ -1,8 +1,16 @@
 /node_modules
 __pycache__/
 
+SVM-1.joblib
+SVM.joblib
+cnn-med.py
+/data
+metrics.py
+mfcc_feature_vectors.pl
+model.joblib
+music/
+svm-actual.py
 walk.py
-
 app-1.py
 
 cnn-med-model.h5
