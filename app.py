@@ -28,6 +28,16 @@ api = Api(app)
 UPLOAD_FOLDER = os.path.basename('uploads')
 STATIC = os.path.basename('static')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+spectrogram = os.path.basename('spectrograms')
+
+if not os.path.exists(UPLOAD_FOLDER):
+    os.makedir(UPLOAD_FOLDER)
+
+if not os.path.exists(STATIC):
+    os.makedir(STATIC)
+
+if not os.path.exists(spectrogram):
+    os.makedir(spectrogram)
 
 ALLOWED_EXTENSIONS = set(['wav', 'mp3', 'flac'])
 
@@ -56,7 +66,6 @@ class Process(Resource):
     def post(self):
         data = request.get_json()
         filename = data['filename']
-        spectrogram = os.path.basename('spectrograms')
         fileSrc = os.path.join(UPLOAD_FOLDER, filename)
         path = cts(fileSrc, spectrogram, data['filename'])
         path = path + ".png"
